@@ -1,5 +1,16 @@
-export function msg(): string {
-    return 'HELLO ts-node + test'
+import { getFileInfo } from './get'
+
+export function init(isTest = false) {
+    console.log(`init(${isTest})`)
+    try {
+        (async () => {
+            const x = await getFileInfo(isTest)
+        })()
+        return true
+    } catch (err) {
+        console.error(err)
+        return false
+    }
 }
 
-console.log(msg())
+init()
