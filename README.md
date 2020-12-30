@@ -1,16 +1,16 @@
 # App name
 
 install dependencies
-    yarn
+        yarn
     
 build and run
-    yarn build
+        yarn build
     
 run in dev mode
-    yard dev
+        yard dev
 
 run tests
-    yarn test
+        yarn test
     
 run tests in watch mode
-    yarn test:w
+        yarn test:w
