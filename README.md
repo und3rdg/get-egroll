@@ -1,16 +1,28 @@
-# App name
+# get-egroll
+
+Update proton with latest egroll releasee.
+
 
 install dependencies
-        yarn
+
+    yarn
     
 build and run
-        yarn build
+
+    yarn build
+    
     
 run in dev mode
-        yard dev
+
+    yarn dev
+
 
 run tests
-        yarn test
+
+    yarn test
+        
     
 run tests in watch mode
-        yarn test:w
+
+    yarn test:w
+        
