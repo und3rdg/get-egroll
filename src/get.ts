@@ -2,8 +2,8 @@ import request from 'request'
 import { JSDOM } from 'jsdom'
 
 interface IgetFileInfo {
-    version: string
-    url: string|undefined
+    version: string | undefined
+    url: string | undefined
 }
 
 export async function getDownloadInfo(isTest = false): Promise<IgetFileInfo> {
@@ -11,11 +11,11 @@ export async function getDownloadInfo(isTest = false): Promise<IgetFileInfo> {
     const releasePageUrl = '/GloriousEggroll/proton-ge-custom/releases/latest'
     const url = await resolveUrl(github, releasePageUrl)
 
-    const version = 'todo'
+    const version = getVersion(url)
     return { version, url }
 }
 
-function resolveUrl(host: string, releasePageUrl: string): Promise<string|undefined> {
+function resolveUrl(host: string, releasePageUrl: string): Promise<string | undefined> {
     return new Promise((resolve) => {
         const url = host + releasePageUrl
         request(url, (err, response) => {
@@ -28,4 +28,13 @@ function resolveUrl(host: string, releasePageUrl: string): Promise<string|undefi
             resolve(host + url?.href)
         })
     })
+}
+
+function getVersion(url: string | undefined): string | undefined {
+    const fileName = url?.split('/').splice(-1)[0]
+    return removeExtension(fileName)
+}
+
+function removeExtension(url: string | undefined) {
+    return url?.split('.tar.gz')[0]
 }
