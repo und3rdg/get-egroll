@@ -1,18 +1,24 @@
+import fs from 'fs'
 import request from 'request'
 import { JSDOM } from 'jsdom'
+import { homedir } from 'os'
 
 interface IgetFileInfo {
     version: string | undefined
     url: string | undefined
+    shouldUpdate: boolean
 }
 
 export async function getDownloadInfo(isTest = false): Promise<IgetFileInfo> {
-    const github = isTest ? 'http://mock.undg.xyz' : 'https://github.com'
+    const github = isTest ? 'http://mock.undg.xyz' : 'https://github.com' // :'(
     const releasePageUrl = '/GloriousEggroll/proton-ge-custom/releases/latest'
     const url = await resolveUrl(github, releasePageUrl)
 
     const version = getVersion(url)
-    return { version, url }
+
+    const shouldUpdate = !isUpdateInstalled(version)
+
+    return { version, url, shouldUpdate }
 }
 
 function resolveUrl(host: string, releasePageUrl: string): Promise<string | undefined> {
@@ -30,11 +36,17 @@ function resolveUrl(host: string, releasePageUrl: string): Promise<string | unde
     })
 }
 
-function getVersion(url: string | undefined): string | undefined {
+function getVersion(url: string | undefined): string {
     const fileName = url?.split('/').splice(-1)[0]
     return removeExtension(fileName)
 }
 
-function removeExtension(url: string | undefined) {
-    return url?.split('.tar.gz')[0]
+function removeExtension(url: string | undefined): string {
+    return url?.split('.tar.gz')[0] ?? 'missingUrl'
+}
+
+export function isUpdateInstalled(version: string | undefined): boolean {
+    const steamDir = homedir() + '/.steam/steam/compatibilitytools.d/'
+    const isDirExist = fs.existsSync(steamDir + version)
+    return isDirExist
 }
