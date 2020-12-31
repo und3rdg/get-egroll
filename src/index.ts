@@ -1,10 +1,10 @@
-import { getFileInfo } from './get'
+import { getDownloadInfo } from './get'
 
 export function init(isTest = false) {
     console.log(`init(${isTest})`)
     try {
         (async () => {
-            const x = await getFileInfo(isTest)
+            const x = await getDownloadInfo(isTest)
         })()
         return true
     } catch (err) {

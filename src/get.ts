@@ -6,9 +6,7 @@ interface IgetFileInfo {
     url: string|undefined
 }
 
-export async function getFileInfo(isTest = false): Promise<IgetFileInfo> {
-    console.log('getFileInfo')
-
+export async function getDownloadInfo(isTest = false): Promise<IgetFileInfo> {
     const github = isTest ? 'http://mock.undg.xyz' : 'https://github.com'
     const releasePageUrl = '/GloriousEggroll/proton-ge-custom/releases/latest'
     const url = await resolveUrl(github, releasePageUrl)
