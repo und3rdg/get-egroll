@@ -1,10 +1,11 @@
-import { getDownloadInfo } from './get'
+import { getDownloadInfo } from './getInfo'
 
 export function init(isTest = false) {
     console.log(`init(${isTest})`)
     try {
         (async () => {
-            const x = await getDownloadInfo(isTest)
+            const info = await getDownloadInfo(isTest)
+            console.log(`is ${info.version} installed? [${!info.shouldUpdate ? "YES" : "NO"}]`)
         })()
         return true
     } catch (err) {

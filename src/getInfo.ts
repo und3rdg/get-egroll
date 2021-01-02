@@ -1,5 +1,5 @@
+import axios from 'axios'
 import fs from 'fs'
-import request from 'request'
 import { JSDOM } from 'jsdom'
 import { homedir } from 'os'
 
@@ -12,7 +12,7 @@ interface IgetFileInfo {
 export async function getDownloadInfo(isTest = false): Promise<IgetFileInfo> {
     const github = isTest ? 'http://mock.undg.xyz' : 'https://github.com' // :'(
     const releasePageUrl = '/GloriousEggroll/proton-ge-custom/releases/latest'
-    const url = await resolveUrl(github, releasePageUrl)
+    const url = await getDownloadUrl(github, releasePageUrl)
 
     const version = getVersion(url)
 
@@ -21,19 +21,20 @@ export async function getDownloadInfo(isTest = false): Promise<IgetFileInfo> {
     return { version, url, shouldUpdate }
 }
 
-function resolveUrl(host: string, releasePageUrl: string): Promise<string | undefined> {
-    return new Promise((resolve) => {
-        const url = host + releasePageUrl
-        request(url, (err, response) => {
-            if (err) console.error('err:', err)
-            const dom = new JSDOM(response.body)
-            const links = dom.window.document.querySelectorAll('a')
-            const url = Object.values(links).find(
-                (a) => a.href.indexOf('/GloriousEggroll/proton-ge-custom/releases/download/') !== -1
-            )
-            resolve(host + url?.href)
-        })
-    })
+async function getDownloadUrl(host: string, releasePageUrl: string): Promise<string | undefined> {
+    try {
+        const releasePageLink = host + releasePageUrl
+        const response = await axios.get(releasePageLink)
+        const dom = new JSDOM(response.data)
+        const links = dom.window.document.querySelectorAll('a')
+        const url = Object.values(links).find(
+            (a) => a.href.indexOf('/GloriousEggroll/proton-ge-custom/releases/download/') !== -1
+        )
+        return host + url?.href
+    } catch (err) {
+        console.error('err:', err)
+        return undefined
+    }
 }
 
 function getVersion(url: string | undefined): string {

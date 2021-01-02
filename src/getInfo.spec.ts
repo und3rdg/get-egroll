@@ -1,6 +1,6 @@
 import 'mocha'
 import { expect } from 'chai'
-import { getDownloadInfo, isUpdateInstalled } from './get'
+import { getDownloadInfo, isUpdateInstalled } from './getInfo'
 
 const mockGithubHost = 'http://mock.undg.xyz'
 
