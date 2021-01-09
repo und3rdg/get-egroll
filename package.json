@@ -5,8 +5,7 @@
     "main": "index.js",
     "dependencies": {
         "axios": "^0.21.1",
-        "jsdom": "^16.4.0",
-        "nock": "^13.0.5"
+        "jsdom": "^16.4.0"
     },
     "devDependencies": {
         "@types/chai": "^4.2.14",
@@ -27,6 +26,7 @@
         "test": "mocha -r ts-node/register src/**/*.spec.ts",
         "test:w": "mocha --require ts-node/register --watch --watch-files src, src/**/*.spec.ts -R nyan",
         "prebuild": "rimraf ./dist",
+        "clean":  "rimraf ./node_modules/",
         "build": "tsc"
     },
     "keywords": [],

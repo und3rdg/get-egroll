@@ -3,3 +3,4 @@ dist/
 .vim/
 *.vim
 *.sw[po]
+yarn-error.log
