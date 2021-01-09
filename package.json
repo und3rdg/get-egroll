@@ -5,7 +5,6 @@
     "main": "index.js",
     "dependencies": {
         "axios": "^0.21.1",
-        "axios-mock-adapter": "^1.19.0",
         "jsdom": "^16.4.0",
         "nock": "^13.0.5"
     },

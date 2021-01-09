@@ -2,16 +2,17 @@ import axios, { AxiosInstance } from 'axios'
 import fs from 'fs'
 import { JSDOM } from 'jsdom'
 import { homedir } from 'os'
+import {githubHost} from './hardcoded'
 
-interface IgetFileInfo {
+interface IgetDownloadInfo {
     version: string | undefined
     url: string | undefined
     shouldUpdate: boolean
 }
 
-export const useAxios = axios.create({baseURL: 'https://github.com'})
+export const useAxios = axios.create({baseURL: githubHost})
 
-export async function getDownloadInfo(axios: AxiosInstance = useAxios): Promise<IgetFileInfo> {
+export async function getDownloadInfo(axios: AxiosInstance = useAxios): Promise<IgetDownloadInfo> {
     const host = axios.defaults.baseURL // :)
     const releasePageUrl = '/GloriousEggroll/proton-ge-custom/releases/latest'
     const url = await getDownloadUrl({ host, releasePageUrl, axios })

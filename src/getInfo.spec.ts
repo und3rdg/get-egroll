@@ -2,8 +2,8 @@ import 'mocha'
 import axios from 'axios'
 import { expect } from 'chai'
 import { getDownloadInfo, isUpdateInstalled } from './getInfo'
+import {mockGithubHost} from './hardcoded'
 
-const mockGithubHost = 'http://mock.undg.xyz'
 export const useAxios = axios.create({ baseURL: mockGithubHost })
 
 describe('getInfo()', async () => {

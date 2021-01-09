@@ -1,0 +1,5 @@
+export const mockGithubHost = 'http://mock.undg.xyz'
+export const githubHost = 'https://github.com'
+export const releaseDownloadFolderUrl = '/GloriousEggroll/proton-ge-custom/releases/download/'
+export const releaseDownloadFileUrl = '/GloriousEggroll/proton-ge-custom/releases/download/5.21-GE-1/Proton-5.21-GE-1.tar.gz'
+export const protonVersion = 'Proton-5.21-GE-1'
